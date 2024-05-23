@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using System.Collections;
 
 public class CubePool : MonoBehaviour
 {
@@ -11,14 +12,25 @@ public class CubePool : MonoBehaviour
 
     private ObjectPool<Cube> _pool;   
 
+    public static CubePool Instance { get; private set; }
+
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         InitializePool();
     }
 
     private void Start()
     {
-        InvokeRepeating(nameof(Issue), 0.0f, _repeatRate);
+        StartCoroutine(IssueCubeCoroutine());
     }
 
     private void InitializePool()
@@ -40,9 +52,13 @@ public class CubePool : MonoBehaviour
         cube.gameObject.SetActive(true);
     }
 
-    public void Issue()
+    public IEnumerator IssueCubeCoroutine()
     {
-        _pool.Get();
+        while (true)
+        {
+            _pool.Get();
+            yield return new WaitForSeconds(_repeatRate);
+        }
     }
 
     public void ReleaseCube(Cube cube)

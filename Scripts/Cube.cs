@@ -19,6 +19,11 @@ public class Cube : MonoBehaviour
         _renderer.material.color = Color.red;
     }
 
+    public void ReleaseFromPlatform()
+    {
+        CubePool.Instance.ReleaseCube(this);
+    }
+
     private void OnEnable()
     {
         _hasTouchedPlatform = false;
