@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(CubePool))]
 public class Platform : MonoBehaviour
 {
     [SerializeField] private float _minTimeLife = 2.0f;
