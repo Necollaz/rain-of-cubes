@@ -33,6 +33,20 @@ public class CubePool : MonoBehaviour
         StartCoroutine(IssueCubeCoroutine());
     }
 
+    public IEnumerator IssueCubeCoroutine()
+    {
+        while (true)
+        {
+            _pool.Get();
+            yield return new WaitForSeconds(_repeatRate);
+        }
+    }
+
+    public void ReleaseCube(Cube cube)
+    {
+        _pool.Release(cube);
+    }
+
     private void InitializePool()
     {
         _pool = new ObjectPool<Cube>(
@@ -50,19 +64,5 @@ public class CubePool : MonoBehaviour
         cube.transform.position = _spawnPoint.transform.position;
         cube.GetComponent<Rigidbody>().velocity = Vector3.down;
         cube.gameObject.SetActive(true);
-    }
-
-    public IEnumerator IssueCubeCoroutine()
-    {
-        while (true)
-        {
-            _pool.Get();
-            yield return new WaitForSeconds(_repeatRate);
-        }
-    }
-
-    public void ReleaseCube(Cube cube)
-    {
-        _pool.Release(cube);
     }
 }
