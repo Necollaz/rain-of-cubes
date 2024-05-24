@@ -30,18 +30,20 @@ public class Spawner : MonoBehaviour
     private void InitializePool()
     {
         _pool = new ObjectPool<Cube>(
-            createFunc: () =>
-            {
-                Cube cube = Instantiate(_prefab);
-                cube.Initialize(this);
-                return cube;
-            },
+            CreateCubeInstance,
             actionOnGet: (cube) => PrepareCube(cube),
             actionOnRelease: (cube) => cube.gameObject.SetActive(false),
             actionOnDestroy: (cube) => Destroy(cube),
             collectionCheck: true,
             defaultCapacity: _poolCapacity,
             maxSize: _poolMaxSize);
+    }
+
+    private Cube CreateCubeInstance()
+    {
+        Cube cube = Instantiate(_prefab);
+        cube.OnReleased += ReleaseCube;
+        return cube;
     }
 
     private void PrepareCube(Cube cube)

@@ -7,10 +7,12 @@ public class Cube : MonoBehaviour
     [SerializeField] private float _minTimeLife = 2.0f;
     [SerializeField] private float _maxTimeLife = 5.0f;
 
-    private bool _hasTouchedPlatform = false;
     private MeshRenderer _renderer;
     private Rigidbody _rigidbody;
-    private Spawner _spawner;
+    private Coroutine _disappearCoroutine;
+    private bool _hasTouchedPlatform = false;
+
+    public event System.Action<Cube> OnReleased;
 
     private void Awake()
     {
@@ -18,24 +20,18 @@ public class Cube : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    public void Initialize(Spawner spawner)
-    {
-        _spawner = spawner;
-    }
-
-    private void Start()
-    {
-        _renderer.material.color = Color.red;
-    }
-
     private void OnEnable()
+    {
+        ResetCube();
+    }
+
+    private void ResetCube()
     {
         _hasTouchedPlatform = false;
         _rigidbody.velocity = Vector3.zero;
         _rigidbody.angularVelocity = Vector3.zero;
         transform.rotation = Quaternion.identity;
         _renderer.material.color = Color.red;
-        StartDisappearing();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -44,22 +40,23 @@ public class Cube : MonoBehaviour
         {
             _hasTouchedPlatform = true;
             _renderer.material.color = Color.blue;
+            StartDisappearing();
         }
     }
 
     private void StartDisappearing()
     {
-        StartCoroutine(DisappearAfterDelay());
+        if (_disappearCoroutine != null)
+        {
+            StopCoroutine(_disappearCoroutine);
+        }
+
+        _disappearCoroutine = StartCoroutine(DisappearAfterDelay());
     }
 
     private IEnumerator DisappearAfterDelay()
     {
         yield return new WaitForSeconds(Random.Range(_minTimeLife, _maxTimeLife));
-        ReleaseFromPlatform();
-    }
-
-    public void ReleaseFromPlatform()
-    {
-        _spawner?.ReleaseCube(this);
+        OnReleased?.Invoke(this);
     }
 }
