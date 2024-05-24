@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 226335427}
+  - component: {fileID: 226335428}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -148,12 +149,29 @@ Transform:
   m_GameObject: {fileID: 226335425}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 44.5, z: 0}
+  m_LocalPosition: {x: 0, y: 55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &226335428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226335425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de50910d51b745e1882df30a62dda21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 2938423312778783327, guid: 5f020df5ac181434fa9bda9f92d76680, type: 3}
+  _spawnPoint: {fileID: 226335427}
+  _repeatRate: 1
+  _poolCapacity: 5
+  _poolMaxSize: 20
 --- !u!1 &475257693
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,13 +272,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 475257693}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2164396, y: 0, z: 0, w: 0.97629607}
+  m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
   m_LocalPosition: {x: 0, y: 34.3, z: -7.3}
   m_LocalScale: {x: 2.0853117, y: 0.20853117, z: 2.0853117}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 25, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
 --- !u!114 &475257698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,7 +293,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minTimeLife: 2
   _maxTimeLife: 5
-  _cubePool: {fileID: 1163114409}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,62 +472,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 54.9, z: -0}
+  m_LocalRotation: {x: -0, y: -0.772673, z: -0, w: 0.6348043}
+  m_LocalPosition: {x: 53.75, y: 32.2, z: 11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!1 &1163114408
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1163114410}
-  - component: {fileID: 1163114409}
-  m_Layer: 0
-  m_Name: CubePool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1163114409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1163114408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2de50910d51b745e1882df30a62dda21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 2938423312778783327, guid: 5f020df5ac181434fa9bda9f92d76680, type: 3}
-  _spawnPoint: {fileID: 226335427}
-  _repeatRate: 1
-  _poolCapacity: 5
-  _poolMaxSize: 20
---- !u!4 &1163114410
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1163114408}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -101.189, z: 0}
 --- !u!1 &1573473243
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,7 +600,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minTimeLife: 2
   _maxTimeLife: 5
-  _cubePool: {fileID: 1163114409}
 --- !u!1 &1778755068
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,13 +700,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778755068}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.21643952, y: 0, z: 0, w: 0.97629607}
+  m_LocalRotation: {x: -0.3420201, y: 0, z: 0, w: 0.9396927}
   m_LocalPosition: {x: 0, y: 19.5, z: 15.9}
   m_LocalScale: {x: 2.0853117, y: 0.20853117, z: 2.0853117}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -25, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -40, y: 0, z: 0}
 --- !u!114 &1778755073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -754,7 +721,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minTimeLife: 2
   _maxTimeLife: 5
-  _cubePool: {fileID: 1163114409}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -764,5 +730,4 @@ SceneRoots:
   - {fileID: 1573473247}
   - {fileID: 475257697}
   - {fileID: 1778755072}
-  - {fileID: 1163114410}
   - {fileID: 226335427}

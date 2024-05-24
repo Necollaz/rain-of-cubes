@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 using System.Collections;
 
-public class CubePool : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
     [SerializeField] private Cube _prefab;
     [SerializeField] private Transform _spawnPoint;
@@ -10,36 +10,16 @@ public class CubePool : MonoBehaviour
     [SerializeField] private int _poolCapacity = 5;
     [SerializeField] private int _poolMaxSize = 20;
 
-    private ObjectPool<Cube> _pool;   
-
-    public static CubePool Instance { get; private set; }
+    private ObjectPool<Cube> _pool;
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
-
         InitializePool();
     }
 
     private void Start()
     {
-        StartCoroutine(IssueCubeCoroutine());
-    }
-
-    public IEnumerator IssueCubeCoroutine()
-    {
-        while (true)
-        {
-            _pool.Get();
-            yield return new WaitForSeconds(_repeatRate);
-        }
+        StartCoroutine(SpawnCubeCoroutine());
     }
 
     public void ReleaseCube(Cube cube)
@@ -50,8 +30,13 @@ public class CubePool : MonoBehaviour
     private void InitializePool()
     {
         _pool = new ObjectPool<Cube>(
-            createFunc: () => Instantiate(_prefab),
-            actionOnGet: (cube) => ActionOnGet(cube),
+            createFunc: () =>
+            {
+                Cube cube = Instantiate(_prefab);
+                cube.Initialize(this);
+                return cube;
+            },
+            actionOnGet: (cube) => PrepareCube(cube),
             actionOnRelease: (cube) => cube.gameObject.SetActive(false),
             actionOnDestroy: (cube) => Destroy(cube),
             collectionCheck: true,
@@ -59,10 +44,19 @@ public class CubePool : MonoBehaviour
             maxSize: _poolMaxSize);
     }
 
-    private void ActionOnGet(Cube cube)
+    private void PrepareCube(Cube cube)
     {
         cube.transform.position = _spawnPoint.transform.position;
         cube.GetComponent<Rigidbody>().velocity = Vector3.down;
         cube.gameObject.SetActive(true);
+    }
+
+    private IEnumerator SpawnCubeCoroutine()
+    {
+        while (true)
+        {
+            _pool.Get();
+            yield return new WaitForSeconds(_repeatRate);
+        }
     }
 }
