@@ -25,6 +25,11 @@ public class Cube : MonoBehaviour
         ResetCube();
     }
 
+    public void SetInitialVelocity(Vector3 velocity)
+    {
+        _rigidbody.velocity = velocity;
+    }
+
     private void ResetCube()
     {
         _hasTouchedPlatform = false;

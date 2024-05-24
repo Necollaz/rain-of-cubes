@@ -49,7 +49,7 @@ public class Spawner : MonoBehaviour
     private void PrepareCube(Cube cube)
     {
         cube.transform.position = _spawnPoint.transform.position;
-        cube.GetComponent<Rigidbody>().velocity = Vector3.down;
+        cube.SetInitialVelocity(Vector3.down);
         cube.gameObject.SetActive(true);
     }
 
